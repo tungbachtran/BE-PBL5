@@ -20,8 +20,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://127.0.0.1:5500", 
-        "https://your-frontend-domain.com",
-        "*"  # Chỉ dùng trong dev
+        "https://your-frontend-domain.com"
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
