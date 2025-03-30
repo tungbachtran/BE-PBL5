@@ -18,10 +18,20 @@ app = FastAPI()
 # Cấu hình CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Thay đổi nếu cần
+    allow_origins=[
+        "http://127.0.0.1:5500", 
+        "https://your-frontend-domain.com",
+        "*"  # Chỉ dùng trong dev
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=[
+        "Content-Type", 
+        "X-Requested-With", 
+        "Authorization", 
+        "X-CSRF-Token",
+        "Accept"
+    ],
 )
 
 AUDIO_DIR = "posture_data/audio_alerts"

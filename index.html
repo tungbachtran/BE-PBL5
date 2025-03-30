@@ -58,7 +58,7 @@
         let audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
         // API Endpoints
-        const API_BASE_URL = 'http://localhost:5000';
+        const API_BASE_URL = 'https://be-pbl5.onrender.com';
 
         // Hàm phát âm thanh cảnh báo
         async function playAlertSound(audioUrl) {
@@ -83,7 +83,11 @@
         function checkPostureAlert() {
             const currentTime = Date.now() / 1000; // Chuyển sang giây
 
-            fetch(`${API_BASE_URL}/check_posture_alert`)
+            fetch(`${API_BASE_URL}/check_posture_alert`, {
+                    method: 'GET',
+                    mode: 'cors',  // Thêm dòng này
+                    credentials: 'include'  // Và dòng này
+                })
                 .then(response => response.json())
                 .then(data => {
                     if (data.alert) {
@@ -112,7 +116,9 @@
         // Hàm bắt đầu camera
         async function startCamera() {
             try {
-                const response = await fetch(`${API_BASE_URL}/start_camera`, { method: 'GET' });
+                const response = await fetch(`${API_BASE_URL}/start_camera`, { method: 'GET',
+                mode: 'cors',
+            credentials: 'include' });
                 const data = await response.json();
                 
                 // Hiển thị video feed
@@ -132,7 +138,9 @@
         // Hàm dừng camera
         async function stopCamera() {
             try {
-                const response = await fetch(`${API_BASE_URL}/stop_camera`, { method: 'GET' });
+                const response = await fetch(`${API_BASE_URL}/stop_camera`, { method: 'GET',
+                mode: 'cors',
+            credentials: 'include' });
                 const data = await response.json();
                 
                 // Xóa video feed
@@ -155,7 +163,9 @@
         function startPredictionUpdates() {
             predictionInterval = setInterval(async () => {
                 try {
-                    const response = await fetch(`${API_BASE_URL}/get_prediction`);
+                    const response = await fetch(`${API_BASE_URL}/get_prediction`, { method: 'GET',
+                mode: 'cors',
+            credentials: 'include' });
                     const prediction = await response.json();
                     
                     const confidencePercent = (prediction.confidence * 100).toFixed(2);
